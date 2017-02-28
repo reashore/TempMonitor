@@ -13,7 +13,7 @@ namespace TempMonitor.Domain
 
 		void SetTemperatureThresholds(List<TemperatureThreshold> temperatureThresholdList);
 
-		bool FireTemperatureThreshold { get; }
+		bool IsAtTemperatureThreshold { get; }
 
 		TemperatureThreshold CurrentTemperatureThreshold { get; set; }
 
@@ -38,6 +38,7 @@ namespace TempMonitor.Domain
 
 		public bool IsFahrenheit { get; set; }
 		public TemperatureThreshold CurrentTemperatureThreshold { get; set; }
+		public TemperatureThreshold PreviousTemperatureThreshold { get; set; }
 		public event EventHandler<TemperatureThresholdEventArgs> TemperatureThresholdReached;
 
 	    public void SetTemperatureThresholds(List<TemperatureThreshold> temperatureThresholdList)
@@ -69,45 +70,49 @@ namespace TempMonitor.Domain
 					_temperature = value;
 				}
 
-				if (FireTemperatureThreshold)
+				if (IsAtTemperatureThreshold && PreviousTemperatureThreshold != CurrentTemperatureThreshold)
 				{
 					OnTemperatureThresholdReached(new TemperatureThresholdEventArgs(CurrentTemperatureThreshold));
 				}
 			}
 		}
 
-		public bool FireTemperatureThreshold
+		public bool IsAtTemperatureThreshold
 		{
 			get
 			{
 				foreach (TemperatureThreshold temperatureThreshold in _temperatureThresholdList)
 				{
-					double tolerance = .01;
-					bool currentlyAtThisThreshold = false;
+					const double standardTolerance = .01;
+					double tolerance = standardTolerance;
+					bool previouslyAtThisThreshold = temperatureThreshold == CurrentTemperatureThreshold;
 
-					// If currently at this threshold, then set the tolerance for this threshold
-					if (temperatureThreshold == CurrentTemperatureThreshold)
+					// If previously at this threshold, then set "wider" tolerance for this threshold to reduce fluctuations
+					if (previouslyAtThisThreshold)
 					{
 						tolerance = temperatureThreshold.Tolerance;
-						currentlyAtThisThreshold = true;
 					}
 
 					if (AreEqualWithinTolerance(_temperature, temperatureThreshold.Temperature, tolerance))
 					{
-						//if (currentlyAtThisThreshold)
-						//{
-						//	return false;
-						//}
-
+						if (previouslyAtThisThreshold)
+						{
+							return true;
+						}
+						
 						TemperatureDirection temperatureDirection = _temperature >= _previousTemperature ? TemperatureDirection.Increasing : TemperatureDirection.Decreasing;
 						bool isSameTemperatureDirection = temperatureDirection == temperatureThreshold.Direction;
 
-						CurrentTemperatureThreshold = temperatureThreshold;
+						if (isSameTemperatureDirection)
+						{
+							PreviousTemperatureThreshold = CurrentTemperatureThreshold;
+							CurrentTemperatureThreshold = temperatureThreshold;
+						}
+
 						return isSameTemperatureDirection;
 					}
 				}
 
-				CurrentTemperatureThreshold = null;
 				return false;
 			}
 		}
@@ -150,6 +155,7 @@ namespace TempMonitor.Domain
 
 	    protected virtual void OnTemperatureThresholdReached(TemperatureThresholdEventArgs eventArgs)
 	    {
+
 		    TemperatureThresholdReached?.Invoke(this, eventArgs);
 	    }
 

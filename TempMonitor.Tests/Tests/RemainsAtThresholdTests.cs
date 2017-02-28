@@ -16,15 +16,22 @@ namespace TempMonitor.Tests.Tests
 			thermometer.Temperature = 2;
 
 			// Act
-			thermometer.Temperature = 0;
+			thermometer.Temperature = 0;		// decreasing temperature
 
 			// Assert
-			Assert.True(thermometer.FireTemperatureThreshold);
+			Assert.True(thermometer.IsAtTemperatureThreshold);
 
-			thermometer.Temperature = -.1;
+			// Act
+			thermometer.Temperature = -.1;		// decreasing temperature
 
 			// Assert
-			Assert.True(thermometer.FireTemperatureThreshold);
+			Assert.True(thermometer.IsAtTemperatureThreshold);
+
+			// Act
+			thermometer.Temperature = -.2;		// decreasing temperature
+
+			// Assert
+			Assert.True(thermometer.IsAtTemperatureThreshold);
 		}
 
 		[Fact]
@@ -37,15 +44,22 @@ namespace TempMonitor.Tests.Tests
 			thermometer.Temperature = -2;
 
 			// Act
-			thermometer.Temperature = 0;
+			thermometer.Temperature = 0;		// increasing temperature
 
 			// Assert
-			Assert.True(thermometer.FireTemperatureThreshold);
+			Assert.True(thermometer.IsAtTemperatureThreshold);
 
-			thermometer.Temperature = .1;
+			// Act
+			thermometer.Temperature = .1;		// increasing temperature
 
 			// Assert
-			Assert.True(thermometer.FireTemperatureThreshold);
+			Assert.True(thermometer.IsAtTemperatureThreshold);
+
+			// Act
+			thermometer.Temperature = .2;		// increasing temperature
+
+			// Assert
+			Assert.True(thermometer.IsAtTemperatureThreshold);
 		}
 	}
 }

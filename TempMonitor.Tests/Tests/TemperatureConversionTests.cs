@@ -20,7 +20,7 @@ namespace TempMonitor.Tests.Tests
 			thermometer.Temperature = 32;
 
 			// Assert
-			Assert.True(thermometer.FireTemperatureThreshold);
+			Assert.True(thermometer.IsAtTemperatureThreshold);
 			const string expectedThresholdName = "Freezing";
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 		}

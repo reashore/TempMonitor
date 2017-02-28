@@ -35,20 +35,20 @@ namespace TempMonitor.Tests.Tests
 				}
 			};
 
-			Thermometer thermometer = new Thermometer
-			{
-				Temperature = previousTemperature
-			};
-
+			Thermometer thermometer = new Thermometer();
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
+			thermometer.Temperature = previousTemperature;
 
 			// Act
 			thermometer.Temperature = thresholdTemperature;
 
 			// Assert
-			Assert.Equal(hitsTemperatureThreshold, thermometer.FireTemperatureThreshold);
-			string expectedThresholdName = thresholdName;
-			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
+			Assert.Equal(hitsTemperatureThreshold, thermometer.IsAtTemperatureThreshold);
+			if (thermometer.IsAtTemperatureThreshold)
+			{
+				string expectedThresholdName = thresholdName;
+				Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
+			}
 		}
 	}
 }
