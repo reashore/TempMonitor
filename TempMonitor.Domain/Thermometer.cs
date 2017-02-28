@@ -52,13 +52,9 @@ namespace TempMonitor.Domain
 		{
 			get
 			{
-				if (IsFahrenheit)
-				{
-					return ConvertCelsiusToFahrenheit(_temperature);
-				}
-
-				return _temperature;
+				return IsFahrenheit ? ConvertCelsiusToFahrenheit(_temperature) : _temperature;
 			}
+
 			set
 			{
 				if (IsFahrenheit)
@@ -79,24 +75,6 @@ namespace TempMonitor.Domain
 				}
 			}
 		}
-
-		//public double Temperature
-		//{
-		//	get
-		//	{
-		//		return _temperature;
-		//	}
-		//	set
-		//	{
-		//		_previousTemperature = _temperature;
-		//		_temperature = value;
-
-		//		if (IsAtTemperatureThreshold)
-		//		{
-		//			OnTemperatureThresholdReached(new TemperatureThresholdEventArgs(CurrentTemperatureThreshold));
-		//		}
-		//	}
-		//}
 
 		public bool IsAtTemperatureThreshold
 		{
