@@ -24,8 +24,8 @@ namespace TempMonitor.Domain
 
 	public class Thermometer : IThermometer
 	{
-		// The thermometer stores temperatures internally in centigrade.
-		// When IsFahrenheit = true, temperatues are converted to centigrade.
+		// The thermometer stores temperatures internally in celsius.
+		// When IsFahrenheit = true, temperatues are converted to celsius through Temperature property
 
 		private double _temperature;
 		private double _previousTemperature;
