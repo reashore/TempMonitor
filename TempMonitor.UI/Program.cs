@@ -48,6 +48,7 @@ namespace TempMonitor.UI
 				if (readTemperature)
 				{
 					thermometer.Temperature = temperature;
+					Console.WriteLine($"Set temperature to {temperature}");
 				}
 				else
 				{
@@ -103,7 +104,9 @@ namespace TempMonitor.UI
 			input = input.Trim();
 
 			// Match a double without exponent followed by single white space and C or F, for example: 6.0 C, +32.0 F, -10.123 C, -.12345 F
-			const string regularExpression = @"([-+]?[0-9]*\.?[0-9]+)\s([CF])";
+			//const string regularExpression = @"[+-]?(?:\d+\.?\d*|\d*\.?\d+)\s([CcFf])";
+			const string regularExpression = @"([-+]?[\d]*\.?[\d]+)\s([CcFf])";
+			//const string regularExpression = @"([-+]?[0-9]*\.?[0-9]+)\s([CcFf])";
 			Match match = Regex.Match(input, regularExpression);
 
 			if (!match.Success)
@@ -118,7 +121,7 @@ namespace TempMonitor.UI
 			// Conversion will always succeed since the regular expression matched a double without exponent
 			temperature = Convert.ToDouble(temperatureValue);
 
-			bool isFahrenheit = temperatureType == "F";
+			bool isFahrenheit = temperatureType == "F" || temperatureType == "f";
 
 			if (isFahrenheit)
 			{

@@ -61,6 +61,7 @@
     <Compile Include="Tests\HitTemperatureThresholdTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\RemainsAtThresholdTests.cs" />
+    <Compile Include="Tests\TemperatureConversionTests.cs" />
     <Compile Include="Tests\TemperatureThresholdEventHandlerTests.cs" />
     <Compile Include="TestUtils.cs" />
   </ItemGroup>

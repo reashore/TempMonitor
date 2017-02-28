@@ -24,6 +24,9 @@ namespace TempMonitor.Domain
 
 	public class Thermometer : IThermometer
 	{
+		// The thermometer stores temperatures internally in centigrade.
+		// When IsFahrenheit = true, temperatues are converted to centigrade.
+
 		private double _temperature;
 		private double _previousTemperature;
 		private readonly List<TemperatureThreshold> _temperatureThresholdList = new List<TemperatureThreshold>();
@@ -46,19 +49,54 @@ namespace TempMonitor.Domain
 	    }
 
 		public double Temperature
-	    {
-			get { return _temperature;}
-		    set
-		    {
-			    _previousTemperature = _temperature;
-				_temperature = value;
+		{
+			get
+			{
+				if (IsFahrenheit)
+				{
+					return ConvertCelsiusToFahrenheit(_temperature);
+				}
 
-			    if (IsAtTemperatureThreshold)
-			    {
+				return _temperature;
+			}
+			set
+			{
+				if (IsFahrenheit)
+				{
+					double temp = ConvertFahrenheitToCelsius(value);
+					_previousTemperature = _temperature;
+					_temperature = temp;
+				}
+				else
+				{
+					_previousTemperature = _temperature;
+					_temperature = value;
+				}
+
+				if (IsAtTemperatureThreshold)
+				{
 					OnTemperatureThresholdReached(new TemperatureThresholdEventArgs(CurrentTemperatureThreshold));
 				}
 			}
 		}
+
+		//public double Temperature
+		//{
+		//	get
+		//	{
+		//		return _temperature;
+		//	}
+		//	set
+		//	{
+		//		_previousTemperature = _temperature;
+		//		_temperature = value;
+
+		//		if (IsAtTemperatureThreshold)
+		//		{
+		//			OnTemperatureThresholdReached(new TemperatureThresholdEventArgs(CurrentTemperatureThreshold));
+		//		}
+		//	}
+		//}
 
 		public bool IsAtTemperatureThreshold
 		{
@@ -74,9 +112,9 @@ namespace TempMonitor.Domain
 						tolerance = temperatureThreshold.Tolerance;
 					}
 
-					if (AreEqualWithinTolerance(Temperature, temperatureThreshold.Temperature, tolerance))
+					if (AreEqualWithinTolerance(_temperature, temperatureThreshold.Temperature, tolerance))
 					{
-						TemperatureDirection temperatureDirection = Temperature >= _previousTemperature ? TemperatureDirection.Increasing : TemperatureDirection.Decreasing;
+						TemperatureDirection temperatureDirection = _temperature >= _previousTemperature ? TemperatureDirection.Increasing : TemperatureDirection.Decreasing;
 						bool isSameTemperatureDirection = temperatureDirection == temperatureThreshold.Direction;
 
 						CurrentTemperatureThreshold = temperatureThreshold;
@@ -137,12 +175,19 @@ namespace TempMonitor.Domain
 		    return Math.Abs(x - y) <= tolerance;
 		}
 
-		private static double ConvertCelsiusToFahrenheit(double celsiusTemperature)
+		public static double ConvertCelsiusToFahrenheit(double celsiusTemperature)
 		{
 			const double factor = 9.0 / 5.0;
 			double fahrenheitTemperature = celsiusTemperature * factor + 32;
 
 			return fahrenheitTemperature;
+		}
+		public static double ConvertFahrenheitToCelsius(double fahrenheitTemperature)
+		{
+			const double factor = 5.0 / 9.0;
+			double celsiusTemperature = factor * (fahrenheitTemperature - 32);
+
+			return celsiusTemperature;
 		}
 
 		#endregion
