@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TempMonitor.Domain.Thermometer">
+    <Position X="7.25" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEBAAAAAgAAAAEgUAAQAAACAAAAAAAIAAAQAAQAAQAA=</HashCode>
+      <FileName>Thermometer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TempMonitor.Domain.TemperatureThreshold">
+    <Position X="3.75" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAACAAAAQAAAAAAAAAAAAEAAAEAAA=</HashCode>
+      <FileName>TemperatureThreshold.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TempMonitor.Domain.TemperatureThresholdEventArgs">
+    <Position X="0.75" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TemperatureThresholdEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TempMonitor.Domain.TemperatureDirection">
+    <Position X="0.75" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TemperatureThreshold.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
