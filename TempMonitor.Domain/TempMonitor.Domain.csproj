@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TemperatureConversion.cs" />
     <Compile Include="TemperatureThreshold.cs" />
     <Compile Include="TemperatureThresholdEventArgs.cs" />
     <Compile Include="Thermometer.cs" />

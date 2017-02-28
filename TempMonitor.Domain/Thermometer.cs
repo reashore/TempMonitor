@@ -52,14 +52,14 @@ namespace TempMonitor.Domain
 		{
 			get
 			{
-				return IsFahrenheit ? ConvertCelsiusToFahrenheit(_temperature) : _temperature;
+				return IsFahrenheit ? TemperatureConversion.ConvertCelsiusToFahrenheit(_temperature) : _temperature;
 			}
 
 			set
 			{
 				if (IsFahrenheit)
 				{
-					double temp = ConvertFahrenheitToCelsius(value);
+					double temp = TemperatureConversion.ConvertFahrenheitToCelsius(value);
 					_previousTemperature = _temperature;
 					_temperature = temp;
 				}
@@ -120,7 +120,7 @@ namespace TempMonitor.Domain
 
 				if (IsFahrenheit)
 			    {
-				    double fahrenheitTemperature = ConvertCelsiusToFahrenheit(temperature);
+				    double fahrenheitTemperature = TemperatureConversion.ConvertCelsiusToFahrenheit(temperature);
 				    string fahrenheitTemperatureString = fahrenheitTemperature.ToString("F2").PadLeft(8);
 				    string toleranceString = tolerance.ToString("F2").PadLeft(6);
 				    string directionString = direction.PadLeft(10);
@@ -146,28 +146,9 @@ namespace TempMonitor.Domain
 		    TemperatureThresholdReached?.Invoke(this, eventArgs);
 	    }
 
-		#region Private Methods
-
 	    private static bool AreEqualWithinTolerance(double x, double y, double tolerance)
 	    {
 		    return Math.Abs(x - y) <= tolerance;
 		}
-
-		public static double ConvertCelsiusToFahrenheit(double celsiusTemperature)
-		{
-			const double factor = 9.0 / 5.0;
-			double fahrenheitTemperature = celsiusTemperature * factor + 32;
-
-			return fahrenheitTemperature;
-		}
-		public static double ConvertFahrenheitToCelsius(double fahrenheitTemperature)
-		{
-			const double factor = 5.0 / 9.0;
-			double celsiusTemperature = factor * (fahrenheitTemperature - 32);
-
-			return celsiusTemperature;
-		}
-
-		#endregion
 	}
 }

@@ -29,13 +29,13 @@ namespace TempMonitor.Tests.Tests
 		public void ConvertFahrenheitToCelsiousTest()
 		{
 			// Act
-			double celsius = Thermometer.ConvertFahrenheitToCelsius(32);
+			double celsius = TemperatureConversion.ConvertFahrenheitToCelsius(32);
 
 			// Assert
 			Assert.Equal(0.0, celsius, 2);
 
 			// Act
-			celsius = Thermometer.ConvertFahrenheitToCelsius(212);
+			celsius = TemperatureConversion.ConvertFahrenheitToCelsius(212);
 
 			// Assert
 			Assert.Equal(100.0, celsius, 2);
@@ -45,13 +45,13 @@ namespace TempMonitor.Tests.Tests
 		public void ConvertCelsiousToFahrenheitTest()
 		{
 			// Act
-			double fahrenheit = Thermometer.ConvertCelsiusToFahrenheit(0);
+			double fahrenheit = TemperatureConversion.ConvertCelsiusToFahrenheit(0);
 
 			// Assert
 			Assert.Equal(32.0, fahrenheit, 2);
 
 			// Act
-			fahrenheit = Thermometer.ConvertCelsiusToFahrenheit(100);
+			fahrenheit = TemperatureConversion.ConvertCelsiusToFahrenheit(100);
 
 			// Assert
 			Assert.Equal(212.0, fahrenheit, 2);
