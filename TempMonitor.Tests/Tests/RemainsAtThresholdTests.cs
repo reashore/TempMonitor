@@ -19,12 +19,12 @@ namespace TempMonitor.Tests.Tests
 			thermometer.Temperature = 0;
 
 			// Assert
-			Assert.True(thermometer.IsAtTemperatureThreshold);
+			Assert.True(thermometer.FireTemperatureThreshold);
 
 			thermometer.Temperature = -.1;
 
 			// Assert
-			Assert.True(thermometer.IsAtTemperatureThreshold);
+			Assert.True(thermometer.FireTemperatureThreshold);
 		}
 
 		[Fact]
@@ -40,12 +40,12 @@ namespace TempMonitor.Tests.Tests
 			thermometer.Temperature = 0;
 
 			// Assert
-			Assert.True(thermometer.IsAtTemperatureThreshold);
+			Assert.True(thermometer.FireTemperatureThreshold);
 
 			thermometer.Temperature = .1;
 
 			// Assert
-			Assert.True(thermometer.IsAtTemperatureThreshold);
+			Assert.True(thermometer.FireTemperatureThreshold);
 		}
 	}
 }

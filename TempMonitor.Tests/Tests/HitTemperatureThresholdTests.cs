@@ -46,7 +46,7 @@ namespace TempMonitor.Tests.Tests
 			thermometer.Temperature = thresholdTemperature;
 
 			// Assert
-			Assert.Equal(hitsTemperatureThreshold, thermometer.IsAtTemperatureThreshold);
+			Assert.Equal(hitsTemperatureThreshold, thermometer.FireTemperatureThreshold);
 			string expectedThresholdName = thresholdName;
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 		}

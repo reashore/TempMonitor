@@ -105,8 +105,6 @@ namespace TempMonitor.UI
 
 			// Match a double without exponent followed by single white space and C or F (case insensitive)
 			// For example: 6.0 C, +32.0 F, -10.123 C, -.12345 F
-			//const string regularExpression = @"[+-]?(?:\d+\.?\d*|\d*\.?\d+)\s([CcFf])";
-			// todo Parse doubles with trailing decimal (2.0 C succeeds, 2. C fails)
 			const string regularExpression = @"([-+]?[\d]*\.?[\d]+)\s([CcFf])";
 			Match match = Regex.Match(input, regularExpression);
 

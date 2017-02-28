@@ -21,7 +21,7 @@ namespace TempMonitor.Tests.Tests
 			thermometer.Temperature = 0;
 
 			// Assert
-			Assert.True(thermometer.IsAtTemperatureThreshold);
+			Assert.True(thermometer.FireTemperatureThreshold);
 			const string expectedThresholdName = "Freezing";
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 		}
@@ -40,7 +40,7 @@ namespace TempMonitor.Tests.Tests
 			thermometer.Temperature = 20;
 
 			// Assert
-			Assert.True(thermometer.IsAtTemperatureThreshold);
+			Assert.True(thermometer.FireTemperatureThreshold);
 			const string expectedThresholdName = "Room Temperature";
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 		}
@@ -59,7 +59,7 @@ namespace TempMonitor.Tests.Tests
 			thermometer.Temperature = 100;
 
 			// Assert
-			Assert.True(thermometer.IsAtTemperatureThreshold);
+			Assert.True(thermometer.FireTemperatureThreshold);
 			const string expectedThresholdName = "Boiling";
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 		}

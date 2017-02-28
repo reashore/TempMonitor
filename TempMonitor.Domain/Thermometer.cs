@@ -13,7 +13,7 @@ namespace TempMonitor.Domain
 
 		void SetTemperatureThresholds(List<TemperatureThreshold> temperatureThresholdList);
 
-		bool IsAtTemperatureThreshold { get; }
+		bool FireTemperatureThreshold { get; }
 
 		TemperatureThreshold CurrentTemperatureThreshold { get; set; }
 
@@ -25,7 +25,7 @@ namespace TempMonitor.Domain
 	public class Thermometer : IThermometer
 	{
 		// The thermometer stores temperatures internally in celsius.
-		// When IsFahrenheit = true, temperatues are converted to celsius through Temperature property
+		// When IsFahrenheit = true, temperatues are converted to celsius through the Temperature property
 
 		private double _temperature;
 		private double _previousTemperature;
@@ -59,9 +59,9 @@ namespace TempMonitor.Domain
 			{
 				if (IsFahrenheit)
 				{
-					double temp = TemperatureConversion.ConvertFahrenheitToCelsius(value);
+					double tempTemperature = TemperatureConversion.ConvertFahrenheitToCelsius(value);
 					_previousTemperature = _temperature;
-					_temperature = temp;
+					_temperature = tempTemperature;
 				}
 				else
 				{
@@ -69,29 +69,36 @@ namespace TempMonitor.Domain
 					_temperature = value;
 				}
 
-				if (IsAtTemperatureThreshold)
+				if (FireTemperatureThreshold)
 				{
 					OnTemperatureThresholdReached(new TemperatureThresholdEventArgs(CurrentTemperatureThreshold));
 				}
 			}
 		}
 
-		public bool IsAtTemperatureThreshold
+		public bool FireTemperatureThreshold
 		{
 			get
 			{
 				foreach (TemperatureThreshold temperatureThreshold in _temperatureThresholdList)
 				{
 					double tolerance = .01;
+					bool currentlyAtThisThreshold = false;
 
 					// If currently at this threshold, then set the tolerance for this threshold
 					if (temperatureThreshold == CurrentTemperatureThreshold)
 					{
 						tolerance = temperatureThreshold.Tolerance;
+						currentlyAtThisThreshold = true;
 					}
 
 					if (AreEqualWithinTolerance(_temperature, temperatureThreshold.Temperature, tolerance))
 					{
+						//if (currentlyAtThisThreshold)
+						//{
+						//	return false;
+						//}
+
 						TemperatureDirection temperatureDirection = _temperature >= _previousTemperature ? TemperatureDirection.Increasing : TemperatureDirection.Decreasing;
 						bool isSameTemperatureDirection = temperatureDirection == temperatureThreshold.Direction;
 
