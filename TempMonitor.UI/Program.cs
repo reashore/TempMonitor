@@ -48,7 +48,7 @@ namespace TempMonitor.UI
 				if (readTemperature)
 				{
 					thermometer.Temperature = temperature;
-					Console.WriteLine($"Set temperature to {temperature}");
+					Console.WriteLine($"Temperature = {temperature}");
 				}
 				else
 				{

@@ -11,6 +11,7 @@ namespace TempMonitor.Domain
 
 		private double _temperature;
 		private double _previousTemperature;
+		private bool _eventHandlerFiredForTemperatureThreshold;
 		private readonly List<TemperatureThreshold> _temperatureThresholdList = new List<TemperatureThreshold>();
 
 		public Thermometer(bool isFahrenheit = false)
@@ -19,14 +20,13 @@ namespace TempMonitor.Domain
 		}
 
 		public bool IsFahrenheit { get; set; }
+
 		public TemperatureThreshold CurrentTemperatureThreshold { get; set; }
-		public TemperatureThreshold PreviousTemperatureThreshold { get; set; }
+
 		public event EventHandler<TemperatureThresholdEventArgs> TemperatureThresholdReached;
 
 	    public void SetTemperatureThresholds(List<TemperatureThreshold> temperatureThresholdList)
 	    {
-		    //temperatureThresholdList = temperatureThresholdList.Distinct(e => e.Name);
-
 			foreach (TemperatureThreshold temperatureThreshold in temperatureThresholdList)
 		    {
 				_temperatureThresholdList.Add(temperatureThreshold);
@@ -54,11 +54,7 @@ namespace TempMonitor.Domain
 					_temperature = value;
 				}
 
-				bool areNotEqual = PreviousTemperatureThreshold != CurrentTemperatureThreshold;
-				bool predicate = IsAtTemperatureThreshold && areNotEqual;
-				if (predicate)
-				//if (IsAtTemperatureThreshold && PreviousTemperatureThreshold != CurrentTemperatureThreshold)
-				//if (IsAtTemperatureThreshold && PreviousTemperatureThreshold.Name != CurrentTemperatureThreshold.Name)
+				if (IsAtTemperatureThreshold && !_eventHandlerFiredForTemperatureThreshold)
 				{
 					OnTemperatureThresholdReached(new TemperatureThresholdEventArgs(CurrentTemperatureThreshold));
 				}
@@ -73,7 +69,6 @@ namespace TempMonitor.Domain
 				{
 					const double standardTolerance = .01;
 					double tolerance = standardTolerance;
-					// todo try using Name for comparison
 					bool previouslyAtThisThreshold = temperatureThreshold == CurrentTemperatureThreshold;
 
 					// If previously at this threshold, then set "wider" tolerance for this threshold to reduce fluctuations
@@ -86,6 +81,7 @@ namespace TempMonitor.Domain
 					{
 						if (previouslyAtThisThreshold)
 						{
+							_eventHandlerFiredForTemperatureThreshold = true;
 							return true;
 						}
 						
@@ -94,8 +90,9 @@ namespace TempMonitor.Domain
 
 						if (isSameTemperatureDirection)
 						{
-							PreviousTemperatureThreshold = CurrentTemperatureThreshold;
 							CurrentTemperatureThreshold = temperatureThreshold;
+							_eventHandlerFiredForTemperatureThreshold = false;
+
 						}
 
 						return isSameTemperatureDirection;
