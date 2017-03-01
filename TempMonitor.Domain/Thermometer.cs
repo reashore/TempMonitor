@@ -54,6 +54,7 @@ namespace TempMonitor.Domain
 				}
 
 				if (IsAtTemperatureThreshold && PreviousTemperatureThreshold != CurrentTemperatureThreshold)
+				//if (IsAtTemperatureThreshold && PreviousTemperatureThreshold.Name != CurrentTemperatureThreshold.Name)
 				{
 					OnTemperatureThresholdReached(new TemperatureThresholdEventArgs(CurrentTemperatureThreshold));
 				}
