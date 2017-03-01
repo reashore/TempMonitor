@@ -95,7 +95,8 @@ namespace TempMonitor.UI
 			TemperatureThreshold temperatureThreshold = temperatureThresholdEventArgs.TemperatureThreshold;
 			string name = temperatureThreshold.Name;
 			double temperature = temperatureThreshold.Temperature;
-			string message = $"Reached temperature threshold: {name}, temperature = {temperature:F1} C";
+			TemperatureDirection direction = temperatureThreshold.Direction;
+			string message = $"Reached temperature threshold: {name}, temperature = {temperature:F1} C, Direction = {direction}";
 			Console.WriteLine(message);
 		}
 
@@ -104,8 +105,8 @@ namespace TempMonitor.UI
 			input = input.Trim();
 
 			// Match a double without exponent followed by single white space and C or F (case insensitive)
-			// For example: 6.0 C, +32.0 F, -10.123 C, -.12345 F
-			const string regularExpression = @"([-+]?[\d]*\.?[\d]+)\s([CcFf])";
+			// For example: 6.0 C, +32.0 F, -10.123 C, -.12345 F, 2 C, 2. C
+			const string regularExpression = @"([-+]?[\d]*\.?[\d]*)\s([CcFf])";
 			Match match = Regex.Match(input, regularExpression);
 
 			if (!match.Success)

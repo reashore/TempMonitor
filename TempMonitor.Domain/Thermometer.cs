@@ -111,7 +111,7 @@ namespace TempMonitor.Domain
 
 		    foreach (TemperatureThreshold temperatureThreshold in _temperatureThresholdList)
 		    {
-			    string name = temperatureThreshold.Name.PadRight(30);
+			    string name = temperatureThreshold.Name.PadRight(20);
 			    double temperature = temperatureThreshold.Temperature;
 			    double tolerance = temperatureThreshold.Tolerance;
 			    string direction = temperatureThreshold.Direction.ToString();
