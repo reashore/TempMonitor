@@ -12,6 +12,7 @@ namespace TempMonitor.Tests.Tests
 		private double _temperature;
 		private double _tolerance;
 		private TemperatureDirection _direction;
+		private int _eventHandlerCalledCount;
 
 		[Fact]
 		public void TemperatureThresholdEventHandlerFiresTest()
@@ -20,7 +21,7 @@ namespace TempMonitor.Tests.Tests
 			Thermometer thermometer = new Thermometer();
 			List<TemperatureThreshold> temperatureThresholdList = TestUtils.CreateTemperatureThresholds(TemperatureDirection.Decreasing);
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
-			thermometer.TemperatureThresholdReached += Thermometer_TemperatureThresholdReached;
+			thermometer.TemperatureThresholdReached += HandleTemperatureThresholdReached;
 			thermometer.Temperature = 2;
 			_eventHandlerFired = false;
 
@@ -39,7 +40,45 @@ namespace TempMonitor.Tests.Tests
 			Assert.Equal(TemperatureDirection.Decreasing, _direction);
 		}
 
-		private void Thermometer_TemperatureThresholdReached(object sender, TemperatureThresholdEventArgs e)
+		[Fact]
+		public void TemperatureThresholdEventHandlerFiresOnceAtThresholdTest()
+		{
+			// Arrange
+			Thermometer thermometer = new Thermometer();
+			List<TemperatureThreshold> temperatureThresholdList = TestUtils.CreateTemperatureThresholds(TemperatureDirection.Decreasing);
+			thermometer.SetTemperatureThresholds(temperatureThresholdList);
+			thermometer.TemperatureThresholdReached += HandleTemperatureThresholdReached;
+			thermometer.Temperature = 2;
+			_eventHandlerCalledCount = 0;
+
+			// Act
+			thermometer.Temperature = 0;
+
+			// Assert
+			Assert.True(thermometer.IsAtTemperatureThreshold);
+
+			// Act
+			thermometer.Temperature = -0.1;
+
+			// Assert
+			Assert.True(thermometer.IsAtTemperatureThreshold);
+
+			// Act
+			thermometer.Temperature = -0.2;
+
+			// Assert
+			Assert.True(thermometer.IsAtTemperatureThreshold);
+
+			// Act
+			thermometer.Temperature = -0.3;
+
+			// Assert
+			Assert.True(thermometer.IsAtTemperatureThreshold);
+
+			Assert.Equal(1, _eventHandlerCalledCount);
+		}
+
+		private void HandleTemperatureThresholdReached(object sender, TemperatureThresholdEventArgs e)
 		{
 			TemperatureThreshold temperatureThreshold = e.TemperatureThreshold;
 			_name = temperatureThreshold.Name;
@@ -48,6 +87,7 @@ namespace TempMonitor.Tests.Tests
 			_direction = temperatureThreshold.Direction;
 			
 			_eventHandlerFired = true;
+			_eventHandlerCalledCount++;
 		}
 	}
 }

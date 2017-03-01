@@ -3,14 +3,15 @@
   <Class Name="TempMonitor.Domain.Thermometer">
     <Position X="7.25" Y="1" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AEBAAAAAgAAAAEgUAAQAAACAAAAAAAIAAAQAAQAAQAA=</HashCode>
+      <HashCode>AEBAAAAAAAAAAEgEAAQAAAAAAAQAAAAAAAQAgAgEAAA=</HashCode>
       <FileName>Thermometer.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TempMonitor.Domain.TemperatureThreshold">
     <Position X="3.75" Y="1" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAAAACAAAAQAAAAAAAAAAAAEAAAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAAACAAAAACAAAAQAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>TemperatureThreshold.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -21,6 +22,20 @@
       <FileName>TemperatureThresholdEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="TempMonitor.Domain.TemperatureConversion">
+    <Position X="3.75" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>TemperatureConversion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TempMonitor.Domain.IThermometer">
+    <Position X="10.75" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAEAEAAAAAAAAAAQAAAAAAAAAgAgEAAA=</HashCode>
+      <FileName>IThermometer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="TempMonitor.Domain.TemperatureDirection">
     <Position X="0.75" Y="3.75" Width="2.25" />
     <TypeIdentifier>
