@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tests\HitAllThresholdsTests.cs" />
     <Compile Include="Tests\HitsThresholdWhenTemperatureIsDecreasingTests.cs" />
     <Compile Include="Tests\HitTemperatureThresholdTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

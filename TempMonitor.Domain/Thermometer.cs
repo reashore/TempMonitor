@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -26,7 +25,9 @@ namespace TempMonitor.Domain
 
 	    public void SetTemperatureThresholds(List<TemperatureThreshold> temperatureThresholdList)
 	    {
-		    foreach (TemperatureThreshold temperatureThreshold in temperatureThresholdList)
+		    //temperatureThresholdList = temperatureThresholdList.Distinct(e => e.Name);
+
+			foreach (TemperatureThreshold temperatureThreshold in temperatureThresholdList)
 		    {
 				_temperatureThresholdList.Add(temperatureThreshold);
 			}
@@ -53,7 +54,10 @@ namespace TempMonitor.Domain
 					_temperature = value;
 				}
 
-				if (IsAtTemperatureThreshold && PreviousTemperatureThreshold != CurrentTemperatureThreshold)
+				bool areNotEqual = PreviousTemperatureThreshold != CurrentTemperatureThreshold;
+				bool predicate = IsAtTemperatureThreshold && areNotEqual;
+				if (predicate)
+				//if (IsAtTemperatureThreshold && PreviousTemperatureThreshold != CurrentTemperatureThreshold)
 				//if (IsAtTemperatureThreshold && PreviousTemperatureThreshold.Name != CurrentTemperatureThreshold.Name)
 				{
 					OnTemperatureThresholdReached(new TemperatureThresholdEventArgs(CurrentTemperatureThreshold));
@@ -69,6 +73,7 @@ namespace TempMonitor.Domain
 				{
 					const double standardTolerance = .01;
 					double tolerance = standardTolerance;
+					// todo try using Name for comparison
 					bool previouslyAtThisThreshold = temperatureThreshold == CurrentTemperatureThreshold;
 
 					// If previously at this threshold, then set "wider" tolerance for this threshold to reduce fluctuations
