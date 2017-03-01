@@ -2,7 +2,6 @@
 using TempMonitor.Domain;
 using Xunit;
 
-
 namespace TempMonitor.Tests.Tests
 {
 	public class TemperatureThresholdEventHandlerTests
