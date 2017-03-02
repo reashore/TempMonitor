@@ -115,7 +115,6 @@ namespace TempMonitor.UI
 			string temperatureValue = match.Groups[1].ToString();
 			string temperatureType = match.Groups[2].ToString();
 
-			// Conversion will always succeed since the regular expression matched a double without exponent
 			temperature = Convert.ToDouble(temperatureValue);
 
 			bool isFahrenheit = temperatureType == "F" || temperatureType == "f";
