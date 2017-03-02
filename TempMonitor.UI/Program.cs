@@ -53,7 +53,6 @@ namespace TempMonitor.UI
 					Console.WriteLine("Could not parse input. Try again.");
 				}
 			}
-			//while (!done);
 		}
 
 		public static List<TemperatureThreshold> CreateTemperatureThresholds()
