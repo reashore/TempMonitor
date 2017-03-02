@@ -24,22 +24,20 @@ namespace TempMonitor.UI
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
 			thermometer.TemperatureThresholdReached += HandleThermometerThresholdReached;
 
-			Console.WriteLine("\nWelcome to the temperature monitor.\n");
+			Console.WriteLine("\nWelcome to the temperature monitor.");
 			Console.WriteLine(thermometer.ToString());
-			Console.WriteLine("Temperature values must be followed by a space and temperature type (C or F).\n");
+			Console.WriteLine("Temperature values must be followed by a space and temperature type (C or F).");
+			Console.WriteLine("Examples: 100 C, 20.0 C, 32.0 F, 0.0 C, -0.1 C, +0.1 C");
+			Console.WriteLine("Enter blank line to exit.\n");
 
-			bool done;
-
-			do
+			while (true)
 			{
-				Console.Write("Enter temperature (or blank line to exit) >");
+				Console.Write("Enter temperature >");
 				string input = Console.ReadLine();
 
-				done = string.IsNullOrWhiteSpace(input);
-
-				if (done)
+				if (string.IsNullOrWhiteSpace(input))
 				{
-					continue;
+					break;
 				}
 
 				double temperature;
@@ -47,15 +45,15 @@ namespace TempMonitor.UI
 
 				if (readTemperature)
 				{
-					thermometer.Temperature = temperature;
 					Console.WriteLine($"Temperature = {temperature}");
+					thermometer.Temperature = temperature;
 				}
 				else
 				{
 					Console.WriteLine("Could not parse input. Try again.");
 				}
 			}
-			while (!done);
+			//while (!done);
 		}
 
 		public static List<TemperatureThreshold> CreateTemperatureThresholds()
