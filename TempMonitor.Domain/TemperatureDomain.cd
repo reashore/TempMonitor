@@ -3,7 +3,7 @@
   <Class Name="TempMonitor.Domain.Thermometer">
     <Position X="7.25" Y="1" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AEBAAAAAAAAAAEgEAAQAAAAAAAQAAAAAAAQAgAgEAAA=</HashCode>
+      <HashCode>AEBAAAAAAAAAAAgEAAgAAAAAAAQAAAAAAAQAgAgEAAA=</HashCode>
       <FileName>Thermometer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -11,7 +11,7 @@
   <Class Name="TempMonitor.Domain.TemperatureThreshold">
     <Position X="3.75" Y="1" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAAAACAAAAQAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAAACAAAEACAAAAQAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>TemperatureThreshold.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -22,17 +22,17 @@
       <FileName>TemperatureThresholdEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TempMonitor.Domain.TemperatureConversion">
-    <Position X="3.75" Y="3.5" Width="2.75" />
+  <Class Name="TempMonitor.Domain.Temperature">
+    <Position X="3.75" Y="3.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
-      <FileName>TemperatureConversion.cs</FileName>
+      <HashCode>AgAAAAAAAAAAgAAEAAQAAAAAAAAAAAAAAAAgAAAABQA=</HashCode>
+      <FileName>Temperature.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="TempMonitor.Domain.IThermometer">
     <Position X="10.75" Y="1" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAAEAEAAAAAAAAAAQAAAAAAAAAgAgEAAA=</HashCode>
+      <HashCode>AEAAAAAAAAAAAAAEAAAAAAAAAAQAAAAAAAAAgAgEAAA=</HashCode>
       <FileName>IThermometer.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -41,6 +41,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TemperatureThreshold.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TempMonitor.Domain.TemperatureType">
+    <Position X="0.75" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Temperature.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

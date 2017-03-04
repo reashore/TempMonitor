@@ -12,24 +12,24 @@ namespace TempMonitor.Tests
 				new TemperatureThreshold
 				{
 					Name = "Freezing",
-					Temperature = 0,
-					Tolerance = 0.5,
+					Temperature = new Temperature(0),
+					Tolerance = new Temperature(0.5),
 					Direction = temperatureDirection
 				},
 
 				new TemperatureThreshold
 				{
 					Name = "Room Temperature",
-					Temperature = 20,
-					Tolerance = 0.5,
+					Temperature = new Temperature(20),
+					Tolerance = new Temperature(0.5),
 					Direction = temperatureDirection
 				},
 
 				new TemperatureThreshold
 				{
 					Name = "Boiling",
-					Temperature = 100,
-					Tolerance = 0.5,
+					Temperature = new Temperature(100),
+					Tolerance = new Temperature(0.5),
 					Direction = temperatureDirection
 				}
 			};

@@ -11,50 +11,17 @@ namespace TempMonitor.Tests.Tests
 		{
 			// Arrange
 			List<TemperatureThreshold> temperatureThresholdList = TestUtils.CreateTemperatureThresholds(TemperatureDirection.Decreasing);
-			const bool isFahrenheit = true;
-			Thermometer thermometer = new Thermometer(isFahrenheit);
+			Thermometer thermometer = new Thermometer();
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
-			thermometer.Temperature = 40;
+			thermometer.Temperature = new Temperature(40, TemperatureType.Fahrenheit);
 
 			// Act
-			thermometer.Temperature = 32;
+			thermometer.Temperature = new Temperature(32, TemperatureType.Fahrenheit);
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			const string expectedThresholdName = "Freezing";
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
-		}
-
-		[Fact]
-		public void ConvertFahrenheitToCelsiousTest()
-		{
-			// Act
-			double celsius = TemperatureConversion.ConvertFahrenheitToCelsius(32);
-
-			// Assert
-			Assert.Equal(0.0, celsius, 2);
-
-			// Act
-			celsius = TemperatureConversion.ConvertFahrenheitToCelsius(212);
-
-			// Assert
-			Assert.Equal(100.0, celsius, 2);
-		}
-
-		[Fact]
-		public void ConvertCelsiousToFahrenheitTest()
-		{
-			// Act
-			double fahrenheit = TemperatureConversion.ConvertCelsiusToFahrenheit(0);
-
-			// Assert
-			Assert.Equal(32.0, fahrenheit, 2);
-
-			// Act
-			fahrenheit = TemperatureConversion.ConvertCelsiusToFahrenheit(100);
-
-			// Assert
-			Assert.Equal(212.0, fahrenheit, 2);
 		}
 	}
 }

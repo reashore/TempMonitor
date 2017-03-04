@@ -26,14 +26,6 @@ namespace TempMonitor.Domain
 
 		public TemperatureType TemperatureType { get; }
 
-		// todo needed?
-		private static double ConvertCelsiusToFahrenheit(double celsiusTemperature)
-		{
-			const double factor = 9.0 / 5.0;
-			double fahrenheitTemperature = celsiusTemperature * factor + 32;
-
-			return fahrenheitTemperature;
-		}
 
 		private static double ConvertFahrenheitToCelsius(double fahrenheitTemperature)
 		{
@@ -73,6 +65,44 @@ namespace TempMonitor.Domain
 			string temperatureSymbol = TemperatureType == TemperatureType.Celsius ? "C" : "F";
 			string displayString = $"{Value}{temperatureSymbol}";
 			return displayString;
+		}
+
+		public static bool operator >= (Temperature temperature1, Temperature temperature2)
+		{
+			// convert to Celsius for comparison
+			double temperatureCelsius1 = temperature1.Value;
+			double temperatureCelsius2 = temperature2.Value;
+
+			if (temperature1.TemperatureType == TemperatureType.Fahrenheit)
+			{
+				temperatureCelsius1 = ConvertFahrenheitToCelsius(temperature1.Value);
+			}
+
+			if (temperature2.TemperatureType == TemperatureType.Fahrenheit)
+			{
+				temperatureCelsius2 = ConvertFahrenheitToCelsius(temperature2.Value);
+			}
+
+			return temperatureCelsius1 >= temperatureCelsius2;
+		}
+
+		public static bool operator <=(Temperature temperature1, Temperature temperature2)
+		{
+			// convert to Celsius for comparison
+			double temperatureCelsius1 = temperature1.Value;
+			double temperatureCelsius2 = temperature2.Value;
+
+			if (temperature1.TemperatureType == TemperatureType.Fahrenheit)
+			{
+				temperatureCelsius1 = ConvertFahrenheitToCelsius(temperature1.Value);
+			}
+
+			if (temperature2.TemperatureType == TemperatureType.Fahrenheit)
+			{
+				temperatureCelsius2 = ConvertFahrenheitToCelsius(temperature2.Value);
+			}
+
+			return temperatureCelsius1 <= temperatureCelsius2;
 		}
 	}
 }

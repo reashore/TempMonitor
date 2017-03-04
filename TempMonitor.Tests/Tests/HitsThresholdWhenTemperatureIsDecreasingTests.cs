@@ -13,10 +13,10 @@ namespace TempMonitor.Tests.Tests
 			Thermometer thermometer = new Thermometer();
 			List<TemperatureThreshold> temperatureThresholdList = TestUtils.CreateTemperatureThresholds(TemperatureDirection.Decreasing);
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
-			thermometer.Temperature = 2;
+			thermometer.Temperature = new Temperature(2);
 
 			// Act
-			thermometer.Temperature = 0;		// decreasing temperature
+			thermometer.Temperature = new Temperature(0);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
@@ -31,10 +31,10 @@ namespace TempMonitor.Tests.Tests
 			Thermometer thermometer = new Thermometer();
 			List<TemperatureThreshold> temperatureThresholdList = TestUtils.CreateTemperatureThresholds(TemperatureDirection.Decreasing);
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
-			thermometer.Temperature = 22;
+			thermometer.Temperature = new Temperature(22);
 
 			// Act
-			thermometer.Temperature = 20;		// decreasing temperature
+			thermometer.Temperature = new Temperature(20);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
@@ -49,10 +49,10 @@ namespace TempMonitor.Tests.Tests
 			Thermometer thermometer = new Thermometer();
 			List<TemperatureThreshold> temperatureThresholdList = TestUtils.CreateTemperatureThresholds(TemperatureDirection.Decreasing);
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
-			thermometer.Temperature = 102;
+			thermometer.Temperature = new Temperature(102);
 
 			// Act
-			thermometer.Temperature = 100;		// decreasing temperature
+			thermometer.Temperature = new Temperature(100);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);

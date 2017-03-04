@@ -13,32 +13,32 @@ namespace TempMonitor.Tests.Tests
 			List<TemperatureThreshold> temperatureThresholdList = TestUtils.CreateTemperatureThresholds(TemperatureDirection.Decreasing);
 			Thermometer thermometer = new Thermometer();
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
-			thermometer.Temperature = 2;
+			thermometer.Temperature = new Temperature(2);
 			const string expectedThresholdName = "Freezing";
 
 			// Act
-			thermometer.Temperature = 0;		// decreasing temperature
+			thermometer.Temperature = new Temperature(0);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = -0.1;		// decreasing temperature
+			thermometer.Temperature = new Temperature(-0.1);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = -0.2;		// decreasing temperature
+			thermometer.Temperature = new Temperature(-0.2);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = -0.3;		// decreasing temperature
+			thermometer.Temperature = new Temperature(-0.3);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
@@ -52,32 +52,32 @@ namespace TempMonitor.Tests.Tests
 			List<TemperatureThreshold> temperatureThresholdList = TestUtils.CreateTemperatureThresholds(TemperatureDirection.Increasing);
 			Thermometer thermometer = new Thermometer();
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
-			thermometer.Temperature = -2;
+			thermometer.Temperature = new Temperature(-2);
 			const string expectedThresholdName = "Freezing";
 
 			// Act
-			thermometer.Temperature = 0;		// increasing temperature
+			thermometer.Temperature = new Temperature(0);		// increasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = 0.1;      // increasing temperature
+			thermometer.Temperature = new Temperature(0.1);      // increasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = 0.2;      // increasing temperature
+			thermometer.Temperature = new Temperature(0.2);      // increasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = 0.3;      // increasing temperature
+			thermometer.Temperature = new Temperature(0.3);      // increasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
@@ -91,39 +91,39 @@ namespace TempMonitor.Tests.Tests
 			List<TemperatureThreshold> temperatureThresholdList = TestUtils.CreateTemperatureThresholds(TemperatureDirection.Decreasing);
 			Thermometer thermometer = new Thermometer();
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
-			thermometer.Temperature = 2.0;
+			thermometer.Temperature = new Temperature(2.0);
 			const string expectedThresholdName = "Freezing";
 
 			// Act
-			thermometer.Temperature = 0.0;		// decreasing temperature
+			thermometer.Temperature = new Temperature(0.0);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = -0.1;		// decreasing temperature
+			thermometer.Temperature = new Temperature(-0.1);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = 0.0;		// increasing temperature
+			thermometer.Temperature = new Temperature(0.0);		// increasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = -0.1;		// decreasing temperature
+			thermometer.Temperature = new Temperature(-0.1);		// decreasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
 			// Act
-			thermometer.Temperature = 0.2;      // increasing temperature
+			thermometer.Temperature = new Temperature(0.2);      // increasing temperature
 
 			// Assert
 			Assert.True(thermometer.IsAtTemperatureThreshold);

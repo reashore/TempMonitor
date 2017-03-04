@@ -5,9 +5,7 @@ namespace TempMonitor.Domain
 {
 	public interface IThermometer
 	{
-		bool IsFahrenheit { get; set; }
-
-		double Temperature { get; set; }
+		Temperature Temperature { get; set; }
 
 		void SetTemperatureThresholds(List<TemperatureThreshold> temperatureThresholdList);
 
