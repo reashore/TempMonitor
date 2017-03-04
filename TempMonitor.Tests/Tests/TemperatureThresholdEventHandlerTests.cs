@@ -35,7 +35,7 @@ namespace TempMonitor.Tests.Tests
 			Assert.True(_eventHandlerFired);
 			Assert.Equal(expectedThresholdName, _name);
 			// todo
-			//Assert.Equal(new Temperature(0), _temperature, 3);
+			//Assert.IsTrue(new Temperature(0) == _temperature, 3);
 			//Assert.Equal(new Temperature(.5), _tolerance, 3);
 			Assert.Equal(TemperatureDirection.Decreasing, _direction);
 		}
