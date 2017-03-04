@@ -64,6 +64,7 @@
     <Compile Include="Tests\RemainsAtThresholdTests.cs" />
     <Compile Include="Tests\TemperatureConversionTests.cs" />
     <Compile Include="Tests\TemperatureFlucturationTests.cs" />
+    <Compile Include="Tests\TemperatureTests.cs" />
     <Compile Include="Tests\TemperatureThresholdEventHandlerTests.cs" />
     <Compile Include="TestUtils.cs" />
   </ItemGroup>

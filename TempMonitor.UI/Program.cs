@@ -27,7 +27,7 @@ namespace TempMonitor.UI
 			Console.WriteLine("\nWelcome to the temperature monitor.");
 			Console.WriteLine(thermometer.ToString());
 			Console.WriteLine("Temperature values must be followed by a space and temperature type (C or F).");
-			Console.WriteLine("Examples: 100 C, 20.0 C, 32.0 F, 0.0 C, -0.1 C, +0.1 C");
+			Console.WriteLine("Examples: 100C, 100 C, 100c, 20.0C, 32.0F, 0.0C, -0.1C, +0.1C");
 			Console.WriteLine("Enter blank line to exit.\n");
 
 			while (true)
@@ -97,13 +97,43 @@ namespace TempMonitor.UI
 			Console.WriteLine(message);
 		}
 
+		//public static bool ReadTemperature(string input, out Temperature temperature)
+		//{
+		//	input = input.Trim();
+
+		//	// Match a double without exponent followed by single white space and C or F (case insensitive)
+		//	// For example: 6.0 C, +32.0 F, -10.123 C, -.12345 F, 2 C, 2. C
+		//	const string regularExpression = @"([-+]?[\d]*\.?[\d]*)\s?([CcFf])";
+		//	Match match = Regex.Match(input, regularExpression);
+
+		//	if (!match.Success)
+		//	{
+		//		temperature = 0.0;
+		//		return false;
+		//	}
+
+		//	string temperatureValue = match.Groups[1].ToString();
+		//	string temperatureType = match.Groups[2].ToString();
+
+		//	temperature = Convert.ToDouble(temperatureValue);
+
+		//	bool isFahrenheit = temperatureType == "F" || temperatureType == "f";
+
+		//	if (isFahrenheit)
+		//	{
+		//		temperature = TemperatureConversion.ConvertFahrenheitToCelsius(temperature);
+		//	}
+
+		//	return true;
+		//}
+
 		public static bool ReadTemperature(string input, out double temperature)
 		{
 			input = input.Trim();
 
 			// Match a double without exponent followed by single white space and C or F (case insensitive)
 			// For example: 6.0 C, +32.0 F, -10.123 C, -.12345 F, 2 C, 2. C
-			const string regularExpression = @"([-+]?[\d]*\.?[\d]*)\s([CcFf])";
+			const string regularExpression = @"([-+]?[\d]*\.?[\d]*)\s?([CcFf])";
 			Match match = Regex.Match(input, regularExpression);
 
 			if (!match.Success)

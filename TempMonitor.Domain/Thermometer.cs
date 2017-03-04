@@ -122,7 +122,7 @@ namespace TempMonitor.Domain
 				    string fahrenheitTemperatureString = fahrenheitTemperature.ToString("F2").PadLeft(8);
 				    string toleranceString = tolerance.ToString("F2").PadLeft(6);
 				    string directionString = direction.PadLeft(10);
-					const string format = "{0}: Temperature = {1} F, Tolerance = {2}, Direction = {3}\n";
+					const string format = "{0}: Temperature = {1}F, Tolerance = {2}, Direction = {3}\n";
 
 					stringBuilder.AppendFormat(format, name, fahrenheitTemperatureString, toleranceString, directionString);
 			    }
@@ -130,7 +130,7 @@ namespace TempMonitor.Domain
 				{
 					string temperatureString = temperature.ToString("F2").PadLeft(8);
 					string toleranceString = tolerance.ToString("F2").PadLeft(6);
-					const string format = "{0}: Temperature = {1} C, Tolerance = {2}, Direction = {3}\n";
+					const string format = "{0}: Temperature = {1}C, Tolerance = {2}, Direction = {3}\n";
 
 					stringBuilder.AppendFormat(format, name, temperatureString, toleranceString, direction);
 				}

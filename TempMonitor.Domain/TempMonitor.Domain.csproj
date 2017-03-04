@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IThermometer.cs" />
+    <Compile Include="Temperature.cs" />
     <Compile Include="TemperatureConversion.cs" />
     <Compile Include="TemperatureThreshold.cs" />
     <Compile Include="TemperatureThresholdEventArgs.cs" />
