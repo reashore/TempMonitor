@@ -118,16 +118,6 @@ namespace TempMonitor.Domain
 
 		public static bool operator >= (Temperature temperature1, Temperature temperature2)
 		{
-			//if (ReferenceEquals(temperature1, null))
-			//{
-			//	return !ReferenceEquals(temperature2, null);
-			//}
-
-			//if (ReferenceEquals(temperature2, null))
-			//{
-			//	return true;
-			//}
-
 			// convert to Celsius for comparison
 			double temperatureCelsius1 = temperature1.Value;
 			double temperatureCelsius2 = temperature2.Value;
