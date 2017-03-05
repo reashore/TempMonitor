@@ -43,9 +43,9 @@ namespace TempMonitor.UI
 				}
 
 				Temperature temperature;
-				bool readTemperature = ReadTemperature(input, out temperature);
+				bool parsedTemperature = ReadTemperature(input, out temperature);
 
-				if (readTemperature)
+				if (parsedTemperature)
 				{
 					WriteLine($"Temperature = {temperature}");
 					thermometer.Temperature = temperature;

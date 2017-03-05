@@ -13,7 +13,7 @@ namespace TempMonitor.Domain
 	// the default can be overridden
 	public class Temperature
 	{
-		private static readonly Temperature DefaultTolerance = new Temperature(.0001);
+		private static readonly Temperature DefaultTolerance = new Temperature(.01);
 
 		static Temperature()
 		{
