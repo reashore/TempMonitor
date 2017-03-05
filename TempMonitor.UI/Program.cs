@@ -29,7 +29,7 @@ namespace TempMonitor.UI
 			WriteLine("\nWelcome to the temperature monitor.");
 			WriteLine(thermometer.ToString());
 			WriteLine("Temperature values are followed by C or F.");
-			WriteLine("Examples: 100C, 100 C, 100c, 20.0C, 32.0F, 0.0C, -0.1C, +0.1C");
+			WriteLine("Examples: 100C, 100 C, 100c, 20.0C, 32.0F, 32 F, 0.0C, -0.1C, +0.1C");
 			WriteLine("Enter blank line to exit.\n");
 
 			while (true)
@@ -103,9 +103,10 @@ namespace TempMonitor.UI
 		{
 			input = input.Trim();
 
-			// Match a double without exponent followed by single white space and C or F (case insensitive)
+			// Match a double without exponent followed by optional white space and C or F (case insensitive)
 			// For example: 6.0 C, +32.0 F, -10.123 C, -.12345 F, 2 C, 2. C
-			const string regularExpression = @"([-+]?[\d]*\.?[\d]*)\s?([CcFf])";
+
+			const string regularExpression = @"([-+]?[\d]*\.?[\d]*)\s*([CcFf])";
 			Match match = Regex.Match(input, regularExpression);
 
 			if (!match.Success)

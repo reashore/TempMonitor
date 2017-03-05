@@ -11,10 +11,6 @@ namespace TempMonitor.Domain
 		private bool _eventHandlerFiredForTemperatureThreshold;
 		private readonly List<TemperatureThreshold> _temperatureThresholdList = new List<TemperatureThreshold>();
 
-		public Thermometer()
-		{
-		}
-
 		public TemperatureThreshold CurrentTemperatureThreshold { get; set; }
 
 		public event EventHandler<TemperatureThresholdEventArgs> TemperatureThresholdReached;
@@ -52,17 +48,16 @@ namespace TempMonitor.Domain
 			{
 				foreach (TemperatureThreshold temperatureThreshold in _temperatureThresholdList)
 				{
-					Temperature standardTolerance = new Temperature(.01);
-					Temperature tolerance = standardTolerance;
+					Temperature.ResetToleranceToDefault();
 					bool previouslyAtThisThreshold = temperatureThreshold == CurrentTemperatureThreshold;
 
 					// If previously at this threshold, then set "wider" tolerance for this threshold to reduce fluctuations
 					if (previouslyAtThisThreshold)
 					{
-						tolerance = temperatureThreshold.Tolerance;
+						Temperature.Tolerance = temperatureThreshold.Tolerance;
 					}
 
-					if (Temperature.AreEqualWithinTolerance(_temperature, temperatureThreshold.Temperature, tolerance))
+					if (_temperature == temperatureThreshold.Temperature)
 					{
 						if (previouslyAtThisThreshold)
 						{
@@ -94,7 +89,7 @@ namespace TempMonitor.Domain
 		}
 		public override string ToString()
 		{
-			StringBuilder stringBuilder = new StringBuilder();
+			var stringBuilder = new StringBuilder();
 
 			stringBuilder.AppendLine("Configured temperature thresholds:");
 
