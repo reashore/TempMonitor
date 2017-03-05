@@ -6,9 +6,6 @@ namespace TempMonitor.Domain
 {
 	public class Thermometer : IThermometer
 	{
-		// The thermometer stores temperatures internally in celsius.
-		// When IsFahrenheit = true, temperatues are converted to celsius through the Temperature property
-
 		private Temperature _temperature;
 		private Temperature _previousTemperature;
 		private bool _eventHandlerFiredForTemperatureThreshold;
@@ -91,23 +88,22 @@ namespace TempMonitor.Domain
 			}
 		}
 
-		public override string ToString()
+		protected virtual void OnTemperatureThresholdReached(TemperatureThresholdEventArgs eventArgs)
 	    {
-		    StringBuilder stringBuilder = new StringBuilder();
+		    TemperatureThresholdReached?.Invoke(this, eventArgs);
+		}
+		public override string ToString()
+		{
+			StringBuilder stringBuilder = new StringBuilder();
 
-		    stringBuilder.AppendLine("Configured temperature thresholds:");
+			stringBuilder.AppendLine("Configured temperature thresholds:");
 
-		    foreach (TemperatureThreshold temperatureThreshold in _temperatureThresholdList)
-		    {
+			foreach (TemperatureThreshold temperatureThreshold in _temperatureThresholdList)
+			{
 				stringBuilder.Append(temperatureThreshold);
 			}
 
 			return stringBuilder.ToString();
-	    }
-
-		protected virtual void OnTemperatureThresholdReached(TemperatureThresholdEventArgs eventArgs)
-	    {
-		    TemperatureThresholdReached?.Invoke(this, eventArgs);
-	    }
+		}
 	}
 }

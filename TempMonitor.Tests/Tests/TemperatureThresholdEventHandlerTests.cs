@@ -6,7 +6,6 @@ namespace TempMonitor.Tests.Tests
 {
 	public class TemperatureThresholdEventHandlerTests
 	{
-		private bool _eventHandlerFired;
 		private string _name;
 		private Temperature _temperature;
 		private Temperature _tolerance;
@@ -22,7 +21,7 @@ namespace TempMonitor.Tests.Tests
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
 			thermometer.TemperatureThresholdReached += HandleTemperatureThresholdReached;
 			thermometer.Temperature = new Temperature(2);
-			_eventHandlerFired = false;
+			_eventHandlerCalledCount = 0;
 
 			// Act
 			thermometer.Temperature = new Temperature(0);
@@ -32,11 +31,12 @@ namespace TempMonitor.Tests.Tests
 			const string expectedThresholdName = "Freezing";
 			Assert.Equal(expectedThresholdName, thermometer.CurrentTemperatureThreshold.Name);
 
-			Assert.True(_eventHandlerFired);
+			Assert.Equal(_eventHandlerCalledCount, 1);
 			Assert.Equal(expectedThresholdName, _name);
-			// todo
-			//Assert.IsTrue(new Temperature(0) == _temperature, 3);
-			//Assert.Equal(new Temperature(.5), _tolerance, 3);
+
+			// todo Need value comparison not reference compariosn (or override equality)
+			Assert.Equal(new Temperature(0), _temperature);
+			Assert.Equal(new Temperature(.5), _tolerance);
 			Assert.Equal(TemperatureDirection.Decreasing, _direction);
 		}
 
@@ -86,7 +86,6 @@ namespace TempMonitor.Tests.Tests
 			_tolerance = temperatureThreshold.Tolerance;
 			_direction = temperatureThreshold.Direction;
 			
-			_eventHandlerFired = true;
 			_eventHandlerCalledCount++;
 		}
 	}

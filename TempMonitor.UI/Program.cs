@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TempMonitor.Domain;
 
+using static System.Console;
+
 namespace TempMonitor.UI
 {
 	public class Program
@@ -13,8 +15,8 @@ namespace TempMonitor.UI
 			Program program = new Program();
 			program.RunThermometerMonitor();
 
-			Console.WriteLine("\nPress any key to exit.");
-			Console.ReadKey();
+			WriteLine("\nPress any key to exit.");
+			ReadKey();
 		}
 
 		public void RunThermometerMonitor()
@@ -24,16 +26,16 @@ namespace TempMonitor.UI
 			thermometer.SetTemperatureThresholds(temperatureThresholdList);
 			thermometer.TemperatureThresholdReached += HandleThermometerThresholdReached;
 
-			Console.WriteLine("\nWelcome to the temperature monitor.");
-			Console.WriteLine(thermometer.ToString());
-			Console.WriteLine("Temperature values are followed by C or F.");
-			Console.WriteLine("Examples: 100C, 100 C, 100c, 20.0C, 32.0F, 0.0C, -0.1C, +0.1C");
-			Console.WriteLine("Enter blank line to exit.\n");
+			WriteLine("\nWelcome to the temperature monitor.");
+			WriteLine(thermometer.ToString());
+			WriteLine("Temperature values are followed by C or F.");
+			WriteLine("Examples: 100C, 100 C, 100c, 20.0C, 32.0F, 0.0C, -0.1C, +0.1C");
+			WriteLine("Enter blank line to exit.\n");
 
 			while (true)
 			{
-				Console.Write("Enter temperature >");
-				string input = Console.ReadLine();
+				Write("Enter temperature >");
+				string input = ReadLine();
 
 				if (string.IsNullOrWhiteSpace(input))
 				{
@@ -45,12 +47,12 @@ namespace TempMonitor.UI
 
 				if (readTemperature)
 				{
-					Console.WriteLine($"Temperature = {temperature}");
+					WriteLine($"Temperature = {temperature}");
 					thermometer.Temperature = temperature;
 				}
 				else
 				{
-					Console.WriteLine("Could not parse input. Try again.");
+					WriteLine("Could not parse input. Try again.");
 				}
 			}
 		}
@@ -94,7 +96,7 @@ namespace TempMonitor.UI
 			Temperature temperature = temperatureThreshold.Temperature;
 			TemperatureDirection direction = temperatureThreshold.Direction;
 			string message = $"Reached temperature threshold: {name}, temperature = {temperature:F1}, Direction = {direction}";
-			Console.WriteLine(message);
+			WriteLine(message);
 		}
 
 		public static bool ReadTemperature(string input, out Temperature temperature)
