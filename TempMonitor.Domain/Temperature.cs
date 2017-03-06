@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace TempMonitor.Domain
 {
@@ -52,16 +51,7 @@ namespace TempMonitor.Domain
 
 		#region Temperature Comparison
 
-		// Reference equality is of little value for Temperatures.
-		// Instead, Temperatures should be compared for equal temperature values
-
-		private static double ConvertFahrenheitToCelsius(double fahrenheitTemperature)
-		{
-			const double factor = 5.0 / 9.0;
-			double celsiusTemperature = factor * (fahrenheitTemperature - 32);
-
-			return celsiusTemperature;
-		}
+		// Temperatures should be compared using value semantics (like string)
 
 		public override bool Equals(object obj)
 		{
@@ -71,6 +61,14 @@ namespace TempMonitor.Domain
 			}
 
 			return Equals((Temperature) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			// For hash code algorithm see C# 5.0 in a Nutshell, page 263
+			int hash = 17;
+			hash = hash * 31 + Value.GetHashCode();
+			return hash;
 		}
 
 		public bool Equals(Temperature temperature)
@@ -83,20 +81,17 @@ namespace TempMonitor.Domain
 			return AreEqualWithinTolerance(this, temperature);
 		}
 
-		public override int GetHashCode()
-		{
-			// For hash algorithm see C# 5.0 in a Nutshell, page 263
-			int hash = 17;
-			hash = hash * 31 + Value.GetHashCode();
-			return hash;
-		}
-
 		public static bool operator == (Temperature temperature1, Temperature temperature2)
 		{
 			if (ReferenceEquals(temperature1, null))
 			{
 				return ReferenceEquals(temperature2, null);
 			}
+
+			//if (ReferenceEquals(temperature2, null))
+			//{
+			//	return false;
+			//}
 
 			return temperature1.Equals(temperature2);
 		}
@@ -108,75 +103,63 @@ namespace TempMonitor.Domain
 				return !ReferenceEquals(temperature2, null);
 			}
 
-			if (ReferenceEquals(temperature2, null))
-			{
-				return true;
-			}
+			//if (ReferenceEquals(temperature2, null))
+			//{
+			//	return true;
+			//}
 
 			return !temperature1.Equals(temperature2);
 		}
 
 		public static bool operator >= (Temperature temperature1, Temperature temperature2)
 		{
-			// convert to Celsius for comparison
-			double temperatureCelsius1 = temperature1.Value;
-			double temperatureCelsius2 = temperature2.Value;
-
-			if (temperature1.TemperatureType == TemperatureType.Fahrenheit)
-			{
-				temperatureCelsius1 = ConvertFahrenheitToCelsius(temperature1.Value);
-			}
-
-			if (temperature2.TemperatureType == TemperatureType.Fahrenheit)
-			{
-				temperatureCelsius2 = ConvertFahrenheitToCelsius(temperature2.Value);
-			}
+			// todo check for nulls
+			double temperatureCelsius1 = GetCelsiusValue(temperature1);
+			double temperatureCelsius2 = GetCelsiusValue(temperature2);
 
 			return temperatureCelsius1 >= temperatureCelsius2;
 		}
 
 		public static bool operator <=(Temperature temperature1, Temperature temperature2)
 		{
-			// convert to Celsius for comparison
-			double temperatureCelsius1 = temperature1.Value;
-			double temperatureCelsius2 = temperature2.Value;
-
-			if (temperature1.TemperatureType == TemperatureType.Fahrenheit)
-			{
-				temperatureCelsius1 = ConvertFahrenheitToCelsius(temperature1.Value);
-			}
-
-			if (temperature2.TemperatureType == TemperatureType.Fahrenheit)
-			{
-				temperatureCelsius2 = ConvertFahrenheitToCelsius(temperature2.Value);
-			}
+			// todo check for nulls
+			double temperatureCelsius1 = GetCelsiusValue(temperature1);
+			double temperatureCelsius2 = GetCelsiusValue(temperature2);
 
 			return temperatureCelsius1 <= temperatureCelsius2;
 		}
 
+		#endregion
+
+		#region Private Methods
+
 		private static bool AreEqualWithinTolerance(Temperature temperature1, Temperature temperature2)
 		{
-			// convert all temperatures to Celsius for comparison
-			double temperatureCelsius1 = temperature1.Value;
-			double temperatureCelsius2 = temperature2.Value;
-			double toleranceCelsius = Tolerance.Value;
-
-			if (temperature1.TemperatureType == TemperatureType.Fahrenheit)
-			{
-				temperatureCelsius1 = ConvertFahrenheitToCelsius(temperature1.Value);
-			}
-
-			if (temperature2.TemperatureType == TemperatureType.Fahrenheit)
-			{
-				temperatureCelsius2 = ConvertFahrenheitToCelsius(temperature2.Value);
-			}
-
-			if (Tolerance.TemperatureType == TemperatureType.Fahrenheit)
-			{
-				toleranceCelsius = ConvertFahrenheitToCelsius(Tolerance.Value);
-			}
+			double temperatureCelsius1 = GetCelsiusValue(temperature1);
+			double temperatureCelsius2 = GetCelsiusValue(temperature2);
+			double toleranceCelsius = GetCelsiusValue(Tolerance);
 
 			return Math.Abs(temperatureCelsius1 - temperatureCelsius2) <= toleranceCelsius;
+		}
+
+		private static double GetCelsiusValue(Temperature temperature)
+		{
+			double temperatureCelsius = temperature.Value;
+
+			if (temperature.TemperatureType == TemperatureType.Fahrenheit)
+			{
+				temperatureCelsius = ConvertFahrenheitToCelsius(temperature.Value);
+			}
+
+			return temperatureCelsius;
+		}
+
+		private static double ConvertFahrenheitToCelsius(double fahrenheitTemperature)
+		{
+			const double factor = 5.0 / 9.0;
+			double celsiusTemperature = factor * (fahrenheitTemperature - 32);
+
+			return celsiusTemperature;
 		}
 
 		#endregion
