@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace TempMonitor.Domain
 {
@@ -113,6 +114,9 @@ namespace TempMonitor.Domain
 
 		public static bool operator >= (Temperature temperature1, Temperature temperature2)
 		{
+			Debug.Assert(temperature1 != null);
+			Debug.Assert(temperature2 != null);
+
 			// todo check for nulls
 			double temperatureCelsius1 = GetCelsiusValue(temperature1);
 			double temperatureCelsius2 = GetCelsiusValue(temperature2);
@@ -122,6 +126,9 @@ namespace TempMonitor.Domain
 
 		public static bool operator <=(Temperature temperature1, Temperature temperature2)
 		{
+			Debug.Assert(temperature1 != null);
+			Debug.Assert(temperature2 != null);
+
 			// todo check for nulls
 			double temperatureCelsius1 = GetCelsiusValue(temperature1);
 			double temperatureCelsius2 = GetCelsiusValue(temperature2);
@@ -135,6 +142,9 @@ namespace TempMonitor.Domain
 
 		private static bool AreEqualWithinTolerance(Temperature temperature1, Temperature temperature2)
 		{
+			Debug.Assert(temperature1 != null);
+			Debug.Assert(temperature2 != null);
+
 			double temperatureCelsius1 = GetCelsiusValue(temperature1);
 			double temperatureCelsius2 = GetCelsiusValue(temperature2);
 			double toleranceCelsius = GetCelsiusValue(Tolerance);
@@ -144,6 +154,8 @@ namespace TempMonitor.Domain
 
 		private static double GetCelsiusValue(Temperature temperature)
 		{
+			Debug.Assert(temperature != null);
+
 			double temperatureCelsius = temperature.Value;
 
 			if (temperature.TemperatureType == TemperatureType.Fahrenheit)
